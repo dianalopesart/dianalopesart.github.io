@@ -345,7 +345,7 @@ const BRANDS = [
 
 /* 3. Projetos: um card por projeto.
    via = empresa/agência · client = marca atendida
-   images = artes (a primeira vira capa) · ctas = botões para Behance, Instagram etc. */
+   images = artes (a primeira vira capa; ou use cover = "img/..." para outra capa) · ctas = botões para Behance, Instagram etc. */
 const BEHANCE = "https://www.behance.net/dianalopesart";
 const INSTAGRAM = "https://www.instagram.com/dianalopesart";
 const PROJECTS = [
@@ -388,7 +388,7 @@ const PROJECTS = [
   { via: "Warner Bros.", client: "TNT Sports", images: ["img/b/tnt-2.jpg", "img/b/tnt-3.jpg", "img/b/tnt-4.jpg", "img/b/tnt-5.jpg", "img/b/tnt-6.jpg", "img/b/tnt-7.jpg", "img/b/tnt-8.jpg", "img/b/tnt-9.jpg", "img/b/tnt-10.jpg", "img/b/tnt-11.jpg", "img/b/tnt-12.jpg", "img/b/tnt-13.jpg", "img/b/tnt-14.jpg", "img/b/tnt-15.jpg", "img/b/tnt-16.jpg", "img/b/tnt-17.jpg", "img/b/tnt-18.jpg", "img/b/tnt-19.jpg", "img/b/tnt-20.jpg", "img/b/tnt-21.jpg", "img/b/tnt-22.jpg", "img/b/tnt-23.jpg", "img/b/tnt-24.jpg", "img/b/tnt-25.jpg", "img/b/tnt-26.jpg", "img/b/tnt-27.jpg", "img/b/tnt-28.jpg", "img/b/tnt-29.jpg", "img/b/tnt-30.jpg", "img/b/tnt-31.jpg", "img/b/tnt-32.jpg", "img/b/tnt-33.jpg", "img/b/tnt-34.jpg", "img/b/tnt-35.jpg", "img/b/tnt-36.jpg", "img/b/tnt-37.jpg", "img/b/tnt-38.jpg", "img/b/tnt-39.jpg", "img/b/tnt-40.jpg", "img/b/tnt-41.jpg", "img/b/tnt-42.jpg", "img/b/tnt-43.jpg", "img/b/tnt-44.jpg", "img/b/tnt-45.jpg"],
     text: { pt: "Criação de posts para as redes sociais da TNT Sports Brasil (Instagram e Twitter).", en: "Social media posts for TNT Sports Brazil (Instagram and Twitter)." },
     ctas: [{ label: "Behance", url: "https://www.behance.net/gallery/167478653/TNT-SPORTS" }] },
-  { via: "Sportsbet.io", client: "Copa do Brasil", images: ["img/b/cdb-1.jpg", "img/b/cdb-2.jpg", "img/b/cdb-3.jpg", "img/b/cdb-4.jpg", "img/b/cdb-5.jpg", "img/b/cdb-6.jpg", "img/b/cdb-7.jpg"],
+  { via: "Sportsbet.io", client: "Copa do Brasil", cover: "img/b/cdb-capa.jpg", images: ["img/b/cdb-1.jpg", "img/b/cdb-2.jpg", "img/b/cdb-3.jpg", "img/b/cdb-4.jpg", "img/b/cdb-5.jpg", "img/b/cdb-6.jpg", "img/b/cdb-7.jpg"],
     text: { pt: "Peças para a Sportsbet.io como patrocinadora oficial da Copa do Brasil: promoções, odds da final e conteúdos da competição.", en: "Visuals for Sportsbet.io as official sponsor of the Copa do Brasil: promotions, final odds and competition content." },
     ctas: [{ label: "Behance", url: BEHANCE }] },
   { via: "Institucional", client: "Prefeitura de São Paulo", images: [],
@@ -503,7 +503,7 @@ function render() {
 
   document.getElementById("pgrid").innerHTML = PROJECTS.map((p, i) => {
     const media = p.images.length
-      ? `<img src="${esc(p.images[0])}" alt="${esc(p.client)}" loading="lazy"><span class="count">${p.images.length} ${t.arts}</span>`
+      ? `<img src="${esc(p.cover || p.images[0])}" alt="${esc(p.client)}" loading="lazy"><span class="count">${p.images.length} ${t.arts}</span>`
       : `<span class="big">${esc(initials(p.client))}</span><span class="hint">${t.artSlot}</span>`;
     return `
       <article class="proj">
