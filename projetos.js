@@ -42,3 +42,6 @@ const PROJECTS = [
   { via: "Projeto autoral", client: "@dianalopesart", images: ["img/b/autoral-1.jpg", "img/b/autoral-2.jpg", "img/b/autoral-3.jpg", "img/b/autoral-4.jpg", "img/b/autoral-5.jpg", "img/b/autoral-6.jpg", "img/b/autoral-7.jpg", "img/b/autoral-8.jpg", "img/b/autoral-9.jpg", "img/b/autoral-10.jpg", "img/b/autoral-11.jpg", "img/b/autoral-12.jpg"],
     text: { pt: "Criações autorais publicadas no meu Instagram, @dianalopesart.", en: "Personal work published on my Instagram, @dianalopesart." } }
 ];
+
+/* Endereço de cada projeto no site: "Avanti Palmeiras" vira #avanti-palmeiras */
+const projectSlug = p => p.client.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");

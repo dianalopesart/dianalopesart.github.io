@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Diana Lopes | Portfólio</title>
+<!-- Página usada só para gerar o PDF (ferramentas/gerar-pdf.sh). Abra pdf.html?lang=pt ou ?lang=en para ver. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&family=Playfair+Display:ital,wght@1,400;1,500&display=swap">
+<style>
+  @page{size:A4; margin:0}
+  :root{
+    --bg:#0A0A0B; --ink:#FFFFFF; --muted:rgba(255,255,255,.62); --faint:rgba(255,255,255,.14);
+    --glass:rgba(255,255,255,.06); --orange:#FF6A1F; --pink:#FF5E8A; --green:#34D27B;
+    --font:"Manrope", system-ui, sans-serif; --serif:"Playfair Display", Georgia, serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0; padding:0; background:#555}
+  body{font:400 11pt/1.5 var(--font); color:var(--ink); -webkit-print-color-adjust:exact; print-color-adjust:exact}
+  a{color:inherit; text-decoration:none}
+  .page{position:relative; width:210mm; height:297mm; overflow:hidden; background:var(--bg); margin:0 auto 8mm; padding:16mm 16mm 22mm; page-break-after:always; break-after:page; isolation:isolate}
+  @media print{ html,body{background:var(--bg)} .page{margin:0} }
+  .glow{position:absolute; z-index:-1; border-radius:50%; filter:blur(70px); pointer-events:none}
+  .glow.o{width:140mm; height:140mm; left:-50mm; top:-30mm; background:radial-gradient(circle,var(--orange),transparent 65%); opacity:.45}
+  .glow.p{width:130mm; height:130mm; right:-50mm; bottom:-40mm; background:radial-gradient(circle,var(--pink),transparent 65%); opacity:.35}
+
+  /* Rodapé com o link do site em todas as páginas */
+  .foot{position:absolute; left:16mm; right:16mm; bottom:9mm; display:flex; justify-content:space-between; align-items:center; font:500 8pt/1 var(--font); letter-spacing:.14em; text-transform:uppercase; color:var(--muted); border-top:1px solid var(--faint); padding-top:4mm}
+  .foot a{color:var(--ink)}
+  .foot a b{color:var(--orange); font-weight:600}
+
+  .kicker{font:500 8.5pt/1 var(--font); letter-spacing:.28em; text-transform:uppercase; color:var(--orange)}
+  h2{margin:3mm 0 0; font:300 26pt/1.1 var(--font); letter-spacing:-.02em}
+  .muted{color:var(--muted)}
+
+  /* Capa */
+  .cover{display:flex; flex-direction:column; justify-content:space-between; padding-top:26mm}
+  .cover .face{width:78mm; height:78mm; border-radius:50%; overflow:hidden; border:1px solid rgba(255,255,255,.35); box-shadow:0 12mm 30mm -12mm rgba(255,106,31,.6)}
+  .cover .face img{width:100%; height:100%; object-fit:cover; object-position:50% 30%}
+  .cover h1{margin:12mm 0 0; font:200 64pt/.9 var(--font); text-transform:uppercase; letter-spacing:-.03em}
+  .cover h1 b{font-weight:800}
+  .cover h1 i{font-style:normal; color:var(--orange)}
+  .cover .role{margin-top:6mm; font:500 9pt/1 var(--font); letter-spacing:.28em; text-transform:uppercase}
+  .cover .bio{margin:5mm 0 0; max-width:130mm; font:300 13pt/1.5 var(--font); color:rgba(255,255,255,.82)}
+  .go{display:flex; align-items:center; gap:8mm; padding:7mm; border-radius:6mm; background:var(--glass); border:1px solid var(--faint)}
+  .qr{flex:none; width:30mm; height:30mm; padding:2.5mm; background:#fff; border-radius:2.5mm}
+  .qr img{width:100%; height:100%; display:block}
+  .go small{display:block; font:500 8pt/1 var(--font); letter-spacing:.24em; text-transform:uppercase; color:var(--muted)}
+  .go a{display:block; margin-top:3mm; font:600 17pt/1.2 var(--font)}
+  .go a b{color:var(--orange)}
+  .go p{margin:2.5mm 0 0; font-size:9.5pt; color:var(--muted)}
+
+  /* Sobre */
+  .focus{display:flex; flex-wrap:wrap; gap:2.5mm; margin-top:6mm}
+  .chip{padding:2.2mm 4mm; border-radius:99px; border:1px solid var(--faint); background:var(--glass); font:500 10pt/1 var(--font)}
+  .cols{display:grid; grid-template-columns:1fr 1fr; gap:0 10mm; margin-top:10mm}
+  .col{padding:5mm 0; border-top:1px solid var(--faint)}
+  .col .hd{display:flex; align-items:center; gap:3mm}
+  .col svg{width:8mm; height:8mm; color:var(--orange); flex:none}
+  .col h3{margin:0; font:600 12.5pt/1.2 var(--font)}
+  .col p{margin:2.5mm 0 0; font-size:9.5pt; color:var(--muted); line-height:1.6}
+  .edu{margin-top:8mm; padding:6mm; border-radius:5mm; background:var(--glass); border:1px solid var(--faint)}
+  .edu h3{margin:0 0 4mm; font:500 8pt/1 var(--font); letter-spacing:.24em; text-transform:uppercase; color:var(--muted)}
+  .edu ul{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(3,1fr); gap:4mm}
+  .edu li{padding-left:3mm; border-left:2px solid var(--orange); font-size:9.5pt}
+  .edu li b{display:block; font-weight:600}
+  .edu li span{color:var(--muted); font-size:8.5pt}
+
+  /* Marcas */
+  .brands{display:grid; grid-template-columns:1fr 1fr; gap:5mm; margin-top:9mm}
+  .brand{display:flex; gap:4mm; padding:5mm; border-radius:5mm; background:var(--glass); border:1px solid var(--faint); break-inside:avoid}
+  .brand .logo{flex:none; width:16mm; height:16mm; border-radius:50%; overflow:hidden; background:#1a1a1c; border:1px solid rgba(255,255,255,.3)}
+  .brand .logo img{width:100%; height:100%; object-fit:cover}
+  .brand h3{margin:0; font:600 12pt/1.2 var(--font)}
+  .brand ul{list-style:none; margin:2.5mm 0 0; padding:0; display:grid; gap:1.8mm}
+  .brand li{display:flex; align-items:center; gap:2.2mm; font-size:9pt; color:rgba(255,255,255,.85)}
+  .brand li i{flex:none; width:5.5mm; height:5.5mm; border-radius:50%; overflow:hidden; background:#222; border:1px solid var(--faint); display:grid; place-items:center; font:700 5.5pt/1 var(--font); font-style:normal}
+  .brand li i img{width:100%; height:100%; object-fit:cover}
+
+  /* Página de projeto */
+  .proj-head{display:flex; justify-content:space-between; align-items:flex-end; gap:8mm}
+  .proj-head h2{font-size:28pt; font-weight:600}
+  .proj-head .n{font:200 40pt/1 var(--font); color:rgba(255,255,255,.18)}
+  .proj-text{margin:3mm 0 0; max-width:150mm; color:var(--muted); font-size:10.5pt}
+  .arts{display:grid; grid-template-columns:1fr 1fr; gap:4mm; margin-top:6mm}
+  .arts div{aspect-ratio:1/1.04; border-radius:3.5mm; overflow:hidden; background:#151517}
+  .arts img{width:100%; height:100%; object-fit:cover; object-position:top; display:block}
+  .see{display:flex; justify-content:space-between; align-items:center; margin-top:6mm; padding:4mm 5mm; border-radius:99px; border:1px solid rgba(255,94,138,.55); background:#000}
+  .see span{font:600 10.5pt/1 var(--font)}
+  .see small{font:500 8.5pt/1 var(--font); color:var(--muted)}
+  .see b{color:var(--pink)}
+
+  /* Mais projetos + contato */
+  .more{display:grid; grid-template-columns:1fr 1fr; gap:3mm 8mm; margin-top:8mm}
+  .more a{display:flex; justify-content:space-between; align-items:baseline; gap:4mm; padding:5mm 0; font-size:11.5pt; border-bottom:1px solid var(--faint); font-size:10.5pt}
+  .more a small{font:500 7.5pt/1 var(--font); letter-spacing:.18em; text-transform:uppercase; color:var(--orange)}
+  .gal{display:flex; justify-content:space-between; align-items:center; margin-top:8mm; padding:6mm; border-radius:5mm; background:var(--glass); border:1px solid var(--faint)}
+  .gal b{font:600 13pt/1.2 var(--font)}
+  .gal p{margin:1.5mm 0 0; color:var(--muted); font-size:9.5pt}
+  .gal span{font:600 10pt/1 var(--font); color:var(--pink)}
+  .contacts{display:grid; gap:0; margin-top:9mm; border-radius:5mm; background:var(--glass); border:1px solid var(--faint); padding:2mm 7mm}
+  .contacts a{display:flex; align-items:center; gap:4mm; padding:6mm 0; font-size:12pt; border-top:1px solid var(--faint)}
+  .contacts a:first-child{border-top:0}
+  .contacts svg{width:6.5mm; height:6.5mm; color:var(--orange); flex:none}
+  .contacts b{font-weight:600; min-width:32mm}
+  .contacts span{color:var(--muted)}
+  .end{margin-top:10mm}
+  .end .go{background:linear-gradient(135deg,rgba(255,106,31,.18),rgba(255,94,138,.12))}
+  .thanks{margin-top:14mm; font:italic 400 30pt/1.1 var(--serif)}
+  .thanks i{font-style:normal; color:var(--orange)}
+</style>
+</head>
+<body>
+<div id="doc"></div>
+
+<script src="projetos.js"></script>
+<script src="dados.js"></script>
+<script>
+/* =================================================================
+   PDF DO PORTFÓLIO
+   PDF_PROJECTS = projetos que entram, na ordem, com as artes escolhidas
+   (número da arte dentro do projeto, começando em 1).
+   ================================================================= */
+const SITE = "https://dianalopesart.github.io";
+const SITE_SHOW = "dianalopesart.github.io";
+const PDF_PROJECTS = [
+  { slug: "avanti-palmeiras", arts: [44, 1, 21, 30] },
+  { slug: "gremio",           arts: [19, 1, 12, 16] },
+  { slug: "loja-do-galo",     arts: [12, 2, 5, 16] },
+  { slug: "h2-bet",           arts: [2, 1, 9, 20] },
+  { slug: "seu-bet",          arts: [15, 1, 6, 11] },
+  { slug: "trivela",          arts: [1, 10, 20, 30] },
+  { slug: "pl-brasil",        arts: [4, 1, 12, 22] },
+  { slug: "tnt-sports",       arts: [23, 2, 10, 30] },
+  { slug: "dianalopesart",    arts: [1, 3, 8, 11] }
+];
+const TP = {
+  pt: { role:"Designer gráfica esportiva", visit:"Portfólio completo", visitNote:"Todos os projetos e a galeria com mais de 350 artes.",
+        about:"Quem eu sou", aboutT:"Design que entra em campo", focus:"Especializada em", exp:"Minha expertise", edu:"Formação",
+        brands:"Marcas e clientes", brandsT:"Com quem eu trabalhei", clients:"Clientes", direct:"Trabalho para as redes sociais da empresa.",
+        proj:"Projeto", see:"Ver projeto completo", arts:"artes no site",
+        more:"Mais projetos", moreT:"Continua no site", gal:"Galeria", galT:"Todas as artes, numa ordem diferente a cada visita.", open:"Abrir →",
+        contact:"Fale comigo", contactT:"Vamos criar algo incrível juntos?", thanks:"Obrigada", page:"Página" },
+  en: { role:"Sports graphic designer", visit:"Full portfolio", visitNote:"Every project and a gallery with 350+ artworks.",
+        about:"Who I am", aboutT:"Design that takes the field", focus:"Specialised in", exp:"My expertise", edu:"Education",
+        brands:"Brands and clients", brandsT:"Who I've worked with", clients:"Clients", direct:"Work for the company's social media.",
+        proj:"Project", see:"See the full project", arts:"artworks on the site",
+        more:"More projects", moreT:"More on the site", gal:"Gallery", galT:"Every artwork, in a different order on each visit.", open:"Open →",
+        contact:"Talk to me", contactT:"Shall we create something great together?", thanks:"Thank you", page:"Page" }
+};
+
+const lang = new URLSearchParams(location.search).get("lang") === "en" ? "en" : "pt";
+const t = T[lang], tp = TP[lang];
+document.documentElement.lang = lang === "pt" ? "pt-BR" : "en";
+document.title = lang === "pt" ? "Diana Lopes | Portfólio" : "Diana Lopes | Portfolio";
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;" }[c]));
+const initials = s => s.replace(/[^A-Za-zÀ-ú0-9 ]/g, "").split(" ").filter(Boolean).map(w => w[0]).join("").slice(0, 3);
+const siteUrl = (hash = "") => SITE + "/" + (lang === "en" ? "?lang=en" : "") + hash;
+const pdfImg = src => src.replace(/^img\//, "img/pdf/").replace(/\.(png|webp)$/, ".jpg");   /* versões menores, só para o PDF */
+const qr = `<div class="qr"><img src="img/qr-site.svg" alt=""></div>`;
+const arrow = '<svg viewBox="0 0 16 16" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 11 11 5M6 5h5v5"/></svg>';
+
+let pageNo = 0;
+const page = (inner, cls = "", glow = "o p") => {
+  pageNo++;
+  return `<section class="page ${cls}">${glow.split(" ").filter(Boolean).map(g => `<div class="glow ${g}"></div>`).join("")}${inner}
+    <div class="foot"><span>Diana Lopes · ${esc(tp.role)}</span><a href="${siteUrl()}">${SITE_SHOW.replace("dianalopesart", "<b>dianalopesart</b>")}</a><span>${String(pageNo).padStart(2, "0")}</span></div></section>`;
+};
+
+const pages = [];
+
+/* 1. Capa */
+pages.push(page(`
+  <div>
+    <div class="face"><img src="img/diana-2.jpg" alt="Diana Lopes"></div>
+    <h1>Diana<br><b>Lopes</b><i>.</i></h1>
+    <div class="role">${esc(tp.role)}</div>
+    <p class="bio">${esc(t["hero.bio"])}</p>
+  </div>
+  <div class="go">${qr}<div><small>${esc(tp.visit)}</small><a href="${siteUrl()}">${SITE_SHOW.replace("dianalopesart", "<b>dianalopesart</b>")}</a><p>${esc(tp.visitNote)}</p></div></div>`, "cover"));
+
+/* 2. Sobre + expertise */
+pages.push(page(`
+  <span class="kicker">${esc(tp.about)}</span>
+  <h2>${esc(tp.aboutT)}</h2>
+  <p class="proj-text">${esc(t["hero.bio"])}</p>
+  <div class="focus">${FOCUS[lang].flat().map(f => `<span class="chip">${esc(f)}</span>`).join("")}</div>
+  <div class="cols">${EXPERTISE.map(x => `
+    <div class="col"><div class="hd"><svg viewBox="0 0 34 34" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">${FLAT[x.ico]}</svg><h3>${esc(x[lang][0])}</h3></div>
+    <p>${x[lang][1].map(esc).join(" · ")}</p></div>`).join("")}</div>
+  <div class="edu"><h3>${esc(tp.edu)}</h3><ul>${EDU.map(e => `<li><b>${esc(e[lang])}</b><span>${esc(e.place)}</span></li>`).join("")}</ul></div>`, "", "p"));
+
+/* 3. Marcas */
+pages.push(page(`
+  <span class="kicker">${esc(tp.brands)}</span>
+  <h2>${esc(tp.brandsT)}</h2>
+  <div class="brands">${BRANDS.map(b => `
+    <div class="brand"><div class="logo">${b.logo ? `<img src="${esc(b.logo)}" alt="">` : ""}</div>
+      <div><h3>${esc(b.name)}</h3>${b.clients.length ? `<ul>${b.clients.map(c => `<li><i>${c.logo ? `<img src="${esc(c.logo)}" alt="">` : esc(initials(c.name))}</i>${esc(c.name)}</li>`).join("")}</ul>` : `<p class="muted">${esc(tp.direct)}</p>`}</div></div>`).join("")}</div>`, "", "o"));
+
+/* 4. Um projeto por página */
+PDF_PROJECTS.forEach((sel, n) => {
+  const p = PROJECTS.find(x => projectSlug(x) === sel.slug); if (!p) return;
+  const arts = sel.arts.map(k => p.images[k - 1]).filter(Boolean).slice(0, 4);
+  const link = siteUrl("#" + sel.slug);
+  pages.push(page(`
+    <div class="proj-head"><div><span class="kicker">${esc(p.via)}</span><h2>${esc(p.client)}</h2></div><span class="n">${String(n + 1).padStart(2, "0")}</span></div>
+    <p class="proj-text">${esc(p.text[lang])}</p>
+    <div class="arts">${arts.map(src => `<a href="${link}"><div><img src="${esc(pdfImg(src))}" alt=""></div></a>`).join("")}</div>
+    <a class="see" href="${link}"><span>${esc(tp.see)} <b>→</b></span><small>${p.images.length} ${esc(tp.arts)} · ${SITE_SHOW}/#${sel.slug}</small></a>`, "", n % 2 ? "p" : "o"));
+});
+
+/* 5. Mais projetos + galeria */
+const inPdf = new Set(PDF_PROJECTS.map(x => x.slug));
+pages.push(page(`
+  <span class="kicker">${esc(tp.more)}</span>
+  <h2>${esc(tp.moreT)}</h2>
+  <div class="more">${PROJECTS.filter(p => !inPdf.has(projectSlug(p))).map(p => `<a href="${siteUrl("#" + projectSlug(p))}"><span>${esc(p.client)}</span><small>${esc(p.via)}</small></a>`).join("")}</div>
+  <a class="gal" href="${SITE}/galeria.html"><div><b>${esc(tp.gal)}</b><p>${esc(tp.galT)}</p></div><span>${esc(tp.open)}</span></a>`, "", "p"));
+
+/* 6. Contato */
+pages.push(page(`
+  <span class="kicker">${esc(tp.contact)}</span>
+  <h2>${esc(tp.contactT)}</h2>
+  <div class="contacts">${CONTACTS.map(c => `<a href="${esc(c.url || "mailto:" + c.handle)}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round">${SOCIAL_ICONS[c.key]}</svg><b>${esc(c.name)}</b><span>${esc(c.handle)}</span></a>`).join("")}</div>
+  <div class="end"><div class="go">${qr}<div><small>${esc(tp.visit)}</small><a href="${siteUrl()}">${SITE_SHOW.replace("dianalopesart", "<b>dianalopesart</b>")}</a><p>${esc(tp.visitNote)}</p></div></div></div>
+  <p class="thanks">${esc(tp.thanks)}<i>.</i></p>`, "", "o p"));
+
+document.getElementById("doc").innerHTML = pages.join("");
+</script>
+</body>
+</html>
