@@ -39,8 +39,6 @@ const PROJECTS = [
     text: { pt: "Peças para a Sportsbet.io como patrocinadora oficial da Copa do Brasil: promoções, odds da final e conteúdos da competição.", en: "Visuals for Sportsbet.io as official sponsor of the Copa do Brasil: promotions, final odds and competition content." } },
   { via: "Copa do Brasil", client: "Collab Flamengo", images: ["img/b/collab-flamengo-1.jpg"],
     text: { pt: "Peças para a collab da Copa Betano do Brasil com o Flamengo.", en: "Visuals for the Copa Betano do Brasil collab with Flamengo." } },
-  { via: "Institucional", client: "Prefeitura de São Paulo", images: [],
-    text: { pt: "Peças de comunicação institucional para a Prefeitura de São Paulo.", en: "Institutional communication pieces for the City of São Paulo." } },
-  { via: "Institucional", client: "UniSant'Anna", images: [],
-    text: { pt: "Peças de comunicação interna e externa para o Centro Universitário UniSant'Anna.", en: "Internal and external communication pieces for Centro Universitário UniSant'Anna." } }
+  { via: "Projeto autoral", client: "@dianalopesart", images: [],
+    text: { pt: "Criações autorais publicadas no meu Instagram, @dianalopesart.", en: "Personal work published on my Instagram, @dianalopesart." } }
 ];

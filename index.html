@@ -135,6 +135,9 @@
   .proj .via{font:500 11px/1.3 var(--font); letter-spacing:.2em; text-transform:uppercase; color:var(--orange)}
   .proj h3{font:600 22px/1.15 var(--font); letter-spacing:-.01em}
   .proj p{margin:0; color:var(--muted); font-size:15px}
+  .proj .more{justify-self:start; align-self:end; display:inline-flex; align-items:center; gap:8px; min-height:36px; margin-top:6px; padding:0 16px; border-radius:999px; border:1px solid rgba(255,94,138,.55); background:#000; color:var(--ink); font:600 13px/1 var(--font); cursor:pointer; transition:background .2s, color .2s, border-color .2s}
+  .proj .more:hover{background:var(--ink); color:var(--bg); border-color:var(--ink)}
+  .proj .more svg{width:11px; height:11px}
 
   /* ---------- 4. Expertise ---------- */
   .exp{color:var(--ink); overflow:hidden}
@@ -315,7 +318,7 @@
   <div class="m-grid" id="m-grid"></div>
 </dialog>
 
-<script src="projetos.js?v=1790681796"></script>
+<script src="projetos.js?v=1790693007"></script>
 <script>
 /* =================================================================
    EDITE AQUI — todo o conteúdo do site está nestas listas.
@@ -343,9 +346,7 @@ const BRANDS = [
   { name: "Warner Bros.", cover: "img/wb-capa.jpg", logo: "img/wb-logo.jpg", clients: [
     { name: "TNT Sports", logo: "img/tnt.png" } ] },
   { name: "Copa do Brasil", cover: "img/cdb-capa.jpg", logo: "img/cdb-logo.jpg", clients: [
-    { name: "Collab Flamengo", logo: "img/flamengo.png" } ] },
-  { name: "Prefeitura de São Paulo", cover: "img/prefeitura-capa.jpg", logo: "img/prefeitura-sp.png", clients: [] },
-  { name: "UniSant'Anna", cover: "img/unisantanna-capa.jpg", logo: "img/unisantanna.jpg", clients: [] }
+    { name: "Collab Flamengo", logo: "img/flamengo.png" } ] }
 ];
 
 /* 3. Projetos: ficam no arquivo projetos.js (usado também pela Galeria) */
@@ -397,7 +398,7 @@ const T = {
     "exp.pitch":"Do anúncio da escalação à ativação do patrocinador, crio peças que <b>fazem o torcedor parar o scroll</b>. Uno a linguagem da arquibancada ao rigor de uma comunicação institucional, no ritmo do calendário esportivo.",
     "gal.t":"Galeria","gal.open":"Galeria","gal.close":"Fechar galeria","gal.n":"artes",
     "c.k":"Fale comigo","c.t":"Vamos criar algo incrível juntos?","footer":"Designer esportiva · São Paulo, Brasil",
-    all:"Todos", clientsIn:"Clientes", clientOne:"Cliente", imgSlot:"Imagem", direct:"Trabalho para as redes sociais da empresa.", artSlot:"Espaço para imagens", see:"Ver no", arts:"artes", art1:"arte", copy:"Copiar", copied:"Copiado", open:"Abrir menu", close:"Fechar menu", art:"Arte"
+    all:"Todos", clientsIn:"Clientes", clientOne:"Cliente", imgSlot:"Imagem", direct:"Trabalho para as redes sociais da empresa.", artSlot:"Espaço para imagens", see:"Ver no", more:"Ver mais", arts:"artes", art1:"arte", copy:"Copiar", copied:"Copiado", open:"Abrir menu", close:"Fechar menu", art:"Arte"
   },
   en: {
     "nav.brands":"Brands","nav.projects":"Projects","nav.exp":"Expertise","nav.contact":"Contact",
@@ -409,7 +410,7 @@ const T = {
     "exp.pitch":"From the line-up reveal to the sponsor activation, I create pieces that <b>make fans stop scrolling</b>. I blend the language of the stands with the rigour of institutional communication, at the pace of the sports calendar.",
     "gal.t":"Gallery","gal.open":"Gallery","gal.close":"Close gallery","gal.n":"artworks",
     "c.k":"Talk to me","c.t":"Shall we create something great together?","footer":"Sports designer · São Paulo, Brazil",
-    all:"All", clientsIn:"Clients", clientOne:"Client", imgSlot:"Image", direct:"Work for the company's social media.", artSlot:"Image slot", see:"See on", arts:"artworks", art1:"artwork", copy:"Copy", copied:"Copied", open:"Open menu", close:"Close menu", art:"Artwork"
+    all:"All", clientsIn:"Clients", clientOne:"Client", imgSlot:"Image", direct:"Work for the company's social media.", artSlot:"Image slot", see:"See on", more:"See more", arts:"artworks", art1:"artwork", copy:"Copy", copied:"Copied", open:"Open menu", close:"Close menu", art:"Artwork"
   }
 };
 
@@ -465,6 +466,7 @@ function render() {
           <span class="via">${esc(p.via)}</span>
           <h3>${esc(p.client)}</h3>
           <p>${esc(p.text[lang])}</p>
+          <button class="more" type="button" data-p="${i}">${t.more} ${arrow}</button>
         </div>
       </article>`;
   }).join("");
@@ -508,7 +510,7 @@ document.querySelector(".lang").addEventListener("click", e => {
 /* Galeria do projeto */
 const modal = document.getElementById("modal");
 document.getElementById("pgrid").addEventListener("click", e => {
-  const b = e.target.closest(".media"); if (!b) return;
+  const b = e.target.closest(".media, .more"); if (!b) return;
   const i = Number(b.dataset.p), p = PROJECTS[i], t = T[lang];
   document.getElementById("m-via").textContent = p.via;
   document.getElementById("m-title").textContent = p.client;
