@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Galeria | Diana Lopes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&family=Playfair+Display:ital,wght@1,400;1,500&display=swap">
+<style>
+  html,body{margin:0; padding:0}
+  :root{
+    color-scheme:dark;
+    --bg:#0A0A0B; --ink:#FFFFFF; --muted:rgba(255,255,255,.62); --faint:rgba(255,255,255,.14);
+    --glass:rgba(255,255,255,.06); --orange:#FF6A1F; --pink:#FF5E8A; --green:#34D27B;
+    --font:"Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --serif:"Playfair Display", Georgia, "Times New Roman", serif;
+    --wrap:1400px;
+  }
+  *{box-sizing:border-box}
+  body{background:var(--bg); color:var(--ink); font:400 16px/1.6 var(--font); -webkit-font-smoothing:antialiased; overflow-x:hidden}
+  body::before{content:""; position:fixed; z-index:-1; width:46vw; max-width:620px; aspect-ratio:1; left:-14vw; top:-10%; border-radius:50%; background:radial-gradient(circle,var(--orange),transparent 65%); filter:blur(90px); opacity:.35; pointer-events:none}
+  body::after{content:""; position:fixed; z-index:-1; width:40vw; max-width:560px; aspect-ratio:1; right:-12vw; bottom:-10%; border-radius:50%; background:radial-gradient(circle,var(--pink),transparent 65%); filter:blur(90px); opacity:.3; pointer-events:none}
+  a{color:inherit}
+  :focus-visible{outline:2px solid var(--green); outline-offset:3px}
+  .wrap{max-width:var(--wrap); margin-inline:auto; padding-inline:clamp(16px,3.5vw,40px)}
+
+  /* Topo */
+  .top{position:sticky; top:0; z-index:10; background:rgba(10,10,11,.7); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border-bottom:1px solid var(--faint)}
+  .top .wrap{display:flex; align-items:center; gap:16px; height:64px}
+  .logo{font:italic 400 30px/1 var(--serif); text-decoration:none}
+  .logo i{font-style:normal; color:var(--orange)}
+  .back{margin-left:auto; display:inline-flex; align-items:center; gap:8px; min-height:38px; padding:0 16px; border-radius:999px; border:1px solid var(--faint); background:var(--glass); text-decoration:none; font:500 13px/1 var(--font); color:var(--muted); transition:color .2s, background .2s}
+  .back:hover{background:var(--ink); color:var(--bg)}
+  .back svg{width:13px; height:13px}
+  .lang{display:flex; gap:2px; border:1px solid var(--faint); border-radius:999px; padding:3px}
+  .lang button{border:0; background:none; color:var(--muted); font:600 11px/1 var(--font); letter-spacing:.06em; padding:8px 10px; border-radius:999px; cursor:pointer}
+  .lang button[aria-pressed="true"]{background:var(--ink); color:var(--bg)}
+  @media (max-width:520px){ .back span{display:none} .back{padding:0 12px} }
+
+  /* Título */
+  .head{padding-block:clamp(36px,6vw,72px) clamp(22px,3vw,32px)}
+  .head h1{margin:0; font:200 clamp(48px,9vw,120px)/.95 var(--font); text-transform:uppercase; letter-spacing:-.03em}
+  .head h1 b{font-weight:800}
+  .head h1 i{font-style:normal; color:var(--orange)}
+  .head p{margin:14px 0 0; max-width:60ch; color:var(--muted)}
+  .head .meta{display:flex; flex-wrap:wrap; align-items:center; gap:10px 16px; margin-top:18px; font:500 12px/1 var(--font); letter-spacing:.2em; text-transform:uppercase; color:var(--muted)}
+  .shuffle{display:inline-flex; align-items:center; gap:8px; min-height:36px; padding:0 14px; border-radius:999px; border:1px solid var(--faint); background:var(--glass); color:var(--ink); font:600 12px/1 var(--font); letter-spacing:.04em; text-transform:none; cursor:pointer}
+  .shuffle:hover{background:var(--ink); color:var(--bg)}
+  .shuffle svg{width:14px; height:14px}
+
+  /* Grade */
+  .grid{columns:2; column-gap:10px; padding-bottom:48px}
+  @media (min-width:720px){ .grid{columns:3; column-gap:14px} }
+  @media (min-width:1080px){ .grid{columns:4} }
+  @media (min-width:1400px){ .grid{columns:5} }
+  .grid button{display:block; width:100%; margin:0 0 10px; padding:0; border:0; border-radius:12px; overflow:hidden; background:var(--glass); cursor:zoom-in; break-inside:avoid}
+  @media (min-width:720px){ .grid button{margin-bottom:14px} }
+  .grid img{display:block; width:100%; height:auto; transition:transform .5s ease}
+  .grid button:hover img{transform:scale(1.03)}
+
+  footer{border-top:1px solid var(--faint); color:var(--muted)}
+  footer .wrap{display:flex; flex-wrap:wrap; justify-content:space-between; gap:12px; padding-block:24px 28px; font-size:14px}
+
+  /* Arte ampliada */
+  dialog{max-width:calc(100% - 24px); max-height:calc(100% - 24px); padding:0; border:0; background:transparent; color:var(--ink); overflow:visible}
+  dialog::backdrop{background:rgba(0,0,0,.85); backdrop-filter:blur(8px)}
+  dialog img{display:block; max-width:min(1080px,calc(100vw - 24px)); max-height:calc(100vh - 110px); width:auto; height:auto; border-radius:14px; margin:0 auto}
+  .bar{display:flex; align-items:center; justify-content:center; gap:14px; margin-top:12px}
+  .bar button{width:44px; height:44px; border-radius:50%; border:1px solid var(--faint); background:rgba(18,18,20,.8); color:var(--ink); font-size:20px; cursor:pointer}
+  .bar button:hover{background:var(--ink); color:var(--bg)}
+  .bar span{min-width:84px; text-align:center; color:var(--muted); font:500 13px/1 var(--font)}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="index.html" aria-label="Diana Lopes">DL<i>.</i></a>
+    <a class="back" href="index.html"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M10 3 5 8l5 5"/></svg><span data-t="back">Voltar ao portfólio</span></a>
+    <div class="lang" role="group" aria-label="Idioma">
+      <button type="button" data-lang="pt" aria-pressed="true">PT</button>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="head">
+    <h1><span data-t="title1">Gale</span><b data-t="title2">ria</b><i>.</i></h1>
+    <p data-t="lead">Todas as artes dos projetos de Diana Lopes, misturadas numa ordem diferente a cada visita.</p>
+    <div class="meta">
+      <span id="count"></span>
+      <button class="shuffle" type="button" id="shuffle"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4h3l6 8h3M2 12h3l6-8h3M12 2l2 2-2 2M12 10l2 2-2 2"/></svg><span data-t="shuffle">Embaralhar</span></button>
+    </div>
+  </div>
+  <div class="grid" id="grid"></div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© Diana Lopes · <span data-t="footer">Designer esportiva · São Paulo, Brasil</span></span>
+    <a href="index.html" data-t="back">Voltar ao portfólio</a>
+  </div>
+</footer>
+
+<dialog id="lb" aria-label="Arte">
+  <img id="lb-img" alt="">
+  <div class="bar">
+    <button type="button" id="prev" aria-label="Anterior">‹</button>
+    <span id="pos"></span>
+    <button type="button" id="next" aria-label="Próxima">›</button>
+    <button type="button" id="close" aria-label="Fechar">×</button>
+  </div>
+</dialog>
+
+<script src="projetos.js"></script>
+<script>
+/* A Galeria usa as artes de projetos.js: todas, sem repetir, embaralhadas a cada visita */
+const T = {
+  pt: { back:"Voltar ao portfólio", title1:"Gale", title2:"ria", lead:"Todas as artes dos projetos de Diana Lopes, misturadas numa ordem diferente a cada visita.", shuffle:"Embaralhar", footer:"Designer esportiva · São Paulo, Brasil", arts:"artes", art:"Arte" },
+  en: { back:"Back to portfolio", title1:"Gall", title2:"ery", lead:"Every artwork from Diana Lopes' projects, mixed in a different order on each visit.", shuffle:"Shuffle", footer:"Sports designer · São Paulo, Brazil", arts:"artworks", art:"Artwork" }
+};
+let lang = "pt";
+try { const s = localStorage.getItem("dlskd-lang"); if (s === "pt" || s === "en") lang = s; } catch (e) {}
+
+const ART = [...new Set(PROJECTS.flatMap(p => p.images))];
+const who = new Map(); PROJECTS.forEach(p => p.images.forEach(src => { if (!who.has(src)) who.set(src, p.client); }));
+const shuffle = a => { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;" }[c]));
+
+const grid = document.getElementById("grid"), lb = document.getElementById("lb"), lbImg = document.getElementById("lb-img");
+let at = 0;
+
+function draw() {
+  grid.innerHTML = ART.map((src, k) => `<button type="button" data-k="${k}"><img src="${esc(src)}" alt="${esc(who.get(src))}" loading="lazy"></button>`).join("");
+}
+function texts() {
+  const t = T[lang];
+  document.documentElement.lang = lang === "pt" ? "pt-BR" : "en";
+  document.querySelectorAll("[data-t]").forEach(el => { el.textContent = t[el.dataset.t]; });
+  document.querySelectorAll(".lang button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.lang === lang)));
+  document.getElementById("count").textContent = ART.length + " " + t.arts;
+}
+function show(k) {
+  at = (k + ART.length) % ART.length;
+  lbImg.src = ART[at];
+  lbImg.alt = who.get(ART[at]) + ", " + T[lang].art + " " + (at + 1);
+  document.getElementById("pos").textContent = (at + 1) + " / " + ART.length;
+}
+
+document.querySelector(".lang").addEventListener("click", e => {
+  const b = e.target.closest("button[data-lang]"); if (!b) return;
+  lang = b.dataset.lang;
+  try { localStorage.setItem("dlskd-lang", lang); } catch (err) {}
+  texts();
+});
+document.getElementById("shuffle").addEventListener("click", () => { shuffle(ART); draw(); });
+grid.addEventListener("click", e => { const b = e.target.closest("button[data-k]"); if (!b) return; show(Number(b.dataset.k)); lb.showModal(); });
+document.getElementById("prev").addEventListener("click", () => show(at - 1));
+document.getElementById("next").addEventListener("click", () => show(at + 1));
+document.getElementById("close").addEventListener("click", () => lb.close());
+lb.addEventListener("click", e => { if (e.target === lb) lb.close(); });
+lb.addEventListener("keydown", e => { if (e.key === "ArrowLeft") show(at - 1); if (e.key === "ArrowRight") show(at + 1); });
+
+shuffle(ART);
+draw();
+texts();
+</script>
+</body>
+</html>
