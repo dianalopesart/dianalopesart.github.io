@@ -135,10 +135,6 @@
   .proj .via{font:500 11px/1.3 var(--font); letter-spacing:.2em; text-transform:uppercase; color:var(--orange)}
   .proj h3{font:600 22px/1.15 var(--font); letter-spacing:-.01em}
   .proj p{margin:0; color:var(--muted); font-size:15px}
-  .proj .ctas{display:flex; flex-wrap:wrap; gap:8px; margin-top:6px; align-self:end}
-  .cta-s{display:inline-flex; align-items:center; gap:6px; min-height:32px; padding:0 12px; border-radius:999px; background:#000; border:1px solid rgba(255,94,138,.55); color:rgba(255,255,255,.85); text-decoration:none; font:500 12px/1 var(--font); transition:border-color .2s, color .2s}
-  .cta-s:hover{border-color:var(--pink); color:var(--ink)}
-  .cta-s svg{width:11px; height:11px; color:var(--pink)}
 
   /* ---------- 4. Expertise ---------- */
   .exp{color:var(--ink); overflow:hidden}
@@ -319,7 +315,7 @@
   <div class="m-grid" id="m-grid"></div>
 </dialog>
 
-<script src="projetos.js?v=1790681622"></script>
+<script src="projetos.js?v=1790681796"></script>
 <script>
 /* =================================================================
    EDITE AQUI — todo o conteúdo do site está nestas listas.
@@ -469,7 +465,6 @@ function render() {
           <span class="via">${esc(p.via)}</span>
           <h3>${esc(p.client)}</h3>
           <p>${esc(p.text[lang])}</p>
-          <div class="ctas">${p.ctas.map((c, k) => `<a class="cta-s${k ? " alt" : ""}" href="${esc(c.url)}" target="_blank" rel="noopener">${t.see} ${esc(c.label)} ${arrow}</a>`).join("")}</div>
         </div>
       </article>`;
   }).join("");
