@@ -55,7 +55,7 @@
 
   /* ---------- 1. Diana Lopes ---------- */
   .hero{position:relative; overflow:hidden; isolation:isolate; color:var(--ink)}
-  .hero::before{content:""; position:absolute; z-index:-2; inset:-10%; background:url("img/diana.jpg") 60% 30%/cover no-repeat; filter:blur(60px) saturate(1.4); opacity:.55; transform:scale(1.1)}
+  .hero::before{content:""; position:absolute; z-index:-2; inset:-10%; background:url("img/diana-2.jpg") 60% 30%/cover no-repeat; filter:blur(60px) saturate(1.4); opacity:.55; transform:scale(1.1)}
   .hero::after{content:""; position:absolute; z-index:-1; inset:0; background:radial-gradient(50% 60% at 15% 55%,rgba(255,106,31,.45),transparent 70%),radial-gradient(40% 50% at 85% 20%,rgba(255,94,138,.35),transparent 70%),linear-gradient(180deg,rgba(10,10,11,.2) 0%,rgba(10,10,11,.55) 60%,var(--bg) 100%)}
   .hero .wrap{display:grid; align-content:center; gap:18px; padding-block:calc(120px + env(safe-area-inset-top,0px)) clamp(32px,4vw,48px)}
   .hero .id{display:flex; align-items:center; gap:clamp(16px,3vw,40px); margin-bottom:10px}
@@ -232,8 +232,8 @@
     <div class="wrap">
       <div class="id">
         <h1>Diana<br><b>Lopes</b><i>.</i></h1>
-        <!-- Troque a foto do rosto: substitua o arquivo img/diana.jpg -->
-        <div class="face"><img src="img/diana.jpg" alt="Diana Lopes" width="1010" height="1010" onerror="this.remove()"></div>
+        <!-- Troque a foto do rosto: coloque o arquivo novo em img/ e troque o nome aqui e no .hero::before -->
+        <div class="face"><img src="img/diana-2.jpg" alt="Diana Lopes" width="1080" height="1080" onerror="this.remove()"></div>
       </div>
       <span class="who" data-i18n="hero.who">Quem eu sou</span>
       <p class="bio" data-i18n="hero.bio">Designer gráfica especializada em esporte. Transformo a paixão do torcedor em linguagem visual para clubes, marcas, agências e instituições.</p>
