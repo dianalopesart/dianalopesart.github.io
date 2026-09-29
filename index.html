@@ -126,7 +126,7 @@
   @media (min-width:1080px){ .pgrid{grid-template-columns:1fr 1fr 1fr} }
   .proj{background:var(--glass); border:1px solid var(--faint); border-radius:20px; overflow:hidden; display:grid; grid-template-rows:auto 1fr; backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px)}
   .proj .media{position:relative; aspect-ratio:4/3; overflow:hidden; border:0; padding:0; cursor:zoom-in; color:var(--ink); display:block; width:100%; isolation:isolate}
-  .proj .media img{width:100%; height:100%; object-fit:cover; display:block; transition:transform .6s ease, filter .6s ease}
+  .proj .media img{width:100%; height:100%; object-fit:cover; object-position:top; display:block; transform-origin:top; transition:transform .6s ease, filter .6s ease}
   .proj .media:hover img{transform:scale(1.05)}
   .proj .count{position:absolute; right:12px; bottom:12px; padding:6px 12px; border-radius:999px; background:rgba(10,10,11,.5); border:1px solid var(--faint); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); font:600 12px/1 var(--font)}
   .ph .big{position:absolute; inset:0; display:grid; place-items:center; font:italic 400 clamp(56px,7vw,88px)/1 var(--serif); color:rgba(255,255,255,.28); text-align:center; padding:0 12px}
