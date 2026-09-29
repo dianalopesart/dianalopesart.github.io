@@ -401,7 +401,7 @@ const T = {
     "exp.pitch":"Do anúncio da escalação à ativação do patrocinador, crio peças que <b>fazem o torcedor parar o scroll</b>. Uno a linguagem da arquibancada ao rigor de uma comunicação institucional, no ritmo do calendário esportivo.",
     "gal.t":"Galeria","gal.open":"Galeria","gal.close":"Fechar galeria","gal.n":"artes",
     "c.k":"Fale comigo","c.t":"Vamos criar algo incrível juntos?","footer":"Designer esportiva · São Paulo, Brasil",
-    all:"Todos", clientsIn:"Clientes", clientOne:"Cliente", imgSlot:"Imagem", direct:"Trabalho para as redes sociais da empresa.", artSlot:"Espaço para imagens", see:"Ver no", arts:"artes", copy:"Copiar", copied:"Copiado", open:"Abrir menu", close:"Fechar menu", art:"Arte"
+    all:"Todos", clientsIn:"Clientes", clientOne:"Cliente", imgSlot:"Imagem", direct:"Trabalho para as redes sociais da empresa.", artSlot:"Espaço para imagens", see:"Ver no", arts:"artes", art1:"arte", copy:"Copiar", copied:"Copiado", open:"Abrir menu", close:"Fechar menu", art:"Arte"
   },
   en: {
     "nav.brands":"Brands","nav.projects":"Projects","nav.exp":"Expertise","nav.contact":"Contact",
@@ -413,7 +413,7 @@ const T = {
     "exp.pitch":"From the line-up reveal to the sponsor activation, I create pieces that <b>make fans stop scrolling</b>. I blend the language of the stands with the rigour of institutional communication, at the pace of the sports calendar.",
     "gal.t":"Gallery","gal.open":"Gallery","gal.close":"Close gallery","gal.n":"artworks",
     "c.k":"Talk to me","c.t":"Shall we create something great together?","footer":"Sports designer · São Paulo, Brazil",
-    all:"All", clientsIn:"Clients", clientOne:"Client", imgSlot:"Image", direct:"Work for the company's social media.", artSlot:"Image slot", see:"See on", arts:"artworks", copy:"Copy", copied:"Copied", open:"Open menu", close:"Close menu", art:"Artwork"
+    all:"All", clientsIn:"Clients", clientOne:"Client", imgSlot:"Image", direct:"Work for the company's social media.", artSlot:"Image slot", see:"See on", arts:"artworks", art1:"artwork", copy:"Copy", copied:"Copied", open:"Open menu", close:"Close menu", art:"Artwork"
   }
 };
 
@@ -460,7 +460,7 @@ function render() {
 
   document.getElementById("pgrid").innerHTML = PROJECTS.map((p, i) => {
     const media = p.images.length
-      ? `<img src="${esc(p.cover || p.images[0])}" alt="${esc(p.client)}" loading="lazy"><span class="count">${p.images.length} ${t.arts}</span>`
+      ? `<img src="${esc(p.cover || p.images[0])}" alt="${esc(p.client)}" loading="lazy"><span class="count">${p.images.length} ${p.images.length === 1 ? t.art1 : t.arts}</span>`
       : `<span class="big">${esc(initials(p.client))}</span><span class="hint">${t.artSlot}</span>`;
     return `
       <article class="proj">
