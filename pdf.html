@@ -27,8 +27,10 @@
   /* Página A4 */
   .page{position:relative; width:210mm; height:297mm; overflow:hidden; background:var(--bg); margin:0 auto 24px; padding:52px 40px 84px; break-after:page; isolation:isolate}
   @media print{ html,body{background:var(--bg)} .page{margin:0} }
-  .glow{position:absolute; z-index:-1; border-radius:50%; filter:blur(90px); pointer-events:none}
-  .rule{height:1px; margin:0 0 34px; background:linear-gradient(90deg,transparent,rgba(255,255,255,.22) 20%,rgba(255,255,255,.22) 80%,transparent)}
+  /* Fundos com brilho: imagens prontas geradas por ferramentas/gerar-pdf.sh (sem desfoque no PDF) */
+  .page{background-size:cover; background-position:center}
+  .bg-topo{background-image:url("img/pdf/bg-topo.jpg")} .bg-marcas{background-image:url("img/pdf/bg-marcas.jpg")} .bg-projetos{background-image:url("img/pdf/bg-projetos.jpg")} .bg-expertise{background-image:url("img/pdf/bg-expertise.jpg")} .bg-contato{background-image:url("img/pdf/bg-contato.jpg")}
+  .rule{height:1px; margin:0 0 34px; background:linear-gradient(90deg,#0A0A0B,#404041 20%,#404041 80%,#0A0A0B)}  /* cores sólidas: leitores simples não desenham degradê transparente */
 
   /* Rodapé de toda página: link clicável para o site */
   .foot{position:absolute; left:40px; right:40px; bottom:26px; display:flex; align-items:center; justify-content:space-between; gap:16px; padding-top:14px; border-top:1px solid var(--faint); color:var(--muted); font-size:12px}
@@ -48,16 +50,14 @@
 
   /* 1. Topo (igual ao hero do site) */
   .hero{padding-top:110px}
-  .hero::before{content:""; position:absolute; z-index:-2; inset:-10%; background:url("img/diana-2.jpg") 60% 30%/cover no-repeat; filter:blur(60px) saturate(1.4); opacity:.55; transform:scale(1.1)}
-  .hero::after{content:""; position:absolute; z-index:-1; inset:0; background:radial-gradient(50% 60% at 15% 55%,rgba(255,106,31,.45),transparent 70%),radial-gradient(40% 50% at 85% 20%,rgba(255,94,138,.35),transparent 70%),linear-gradient(180deg,rgba(10,10,11,.2) 0%,rgba(10,10,11,.55) 60%,var(--bg) 100%)}
   .hero .id{display:flex; align-items:center; gap:30px; margin-bottom:28px}
   .hero h1{font:200 96px/.9 var(--font); text-transform:uppercase; letter-spacing:-.03em}
   .hero h1 b{font-weight:800}
   .hero h1 i{font-style:normal; color:var(--orange)}
-  .hero .face{flex:none; width:210px; aspect-ratio:1; border-radius:50%; overflow:hidden; border:1px solid rgba(255,255,255,.35); box-shadow:0 20px 60px -20px rgba(255,106,31,.6)}
+  .hero .face{flex:none; width:210px; aspect-ratio:1; border-radius:50%; overflow:hidden; border:1px solid rgba(255,255,255,.35)}
   .hero .face img{width:100%; height:100%; object-fit:cover; object-position:50% 30%; display:block}
   .who{display:inline-flex; align-items:center; gap:8px; font:500 12px/1 var(--font); letter-spacing:.24em; text-transform:uppercase}
-  .who::before{content:""; width:7px; height:7px; border-radius:50%; background:#fff; box-shadow:0 0 12px #fff}
+  .who::before{content:""; width:7px; height:7px; border-radius:50%; background:#fff; }
   .hero .bio{margin:16px 0 0; max-width:46ch; font-size:19px; font-weight:300; color:rgba(255,255,255,.82)}
   .focus{display:grid; gap:10px; margin-top:26px}
   .focus .lbl{font:500 11px/1 var(--font); letter-spacing:.24em; text-transform:uppercase; color:var(--muted)}
@@ -74,9 +74,9 @@
   .brands{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:40px}
   .brand{border:1px solid var(--faint); border-radius:20px; overflow:hidden; background:var(--glass); display:grid; align-content:start}
   .brand .cover{aspect-ratio:5/2; overflow:hidden}
-  .brand .cover img{width:100%; height:100%; object-fit:cover; display:block; filter:blur(2.5px); transform:scale(1.06)}
+  .brand .cover img{width:100%; height:100%; object-fit:cover; display:block; }
   .brand .head{display:flex; flex-direction:column; align-items:flex-start; gap:8px; padding:0 14px}
-  .brand .avatar{position:relative; z-index:1; width:72px; height:72px; margin-top:-36px; border-radius:50%; border:2px solid rgba(255,255,255,.4); background:rgba(20,20,22,.9); overflow:hidden; box-shadow:0 10px 30px -10px rgba(0,0,0,.8)}
+  .brand .avatar{position:relative; z-index:1; width:72px; height:72px; margin-top:-36px; border-radius:50%; border:2px solid rgba(255,255,255,.4); background:rgba(20,20,22,.9); overflow:hidden}
   .brand .avatar img{width:100%; height:100%; object-fit:cover}
   .brand h3{font:600 15px/1.2 var(--font)}
   .brand .info{padding:8px 14px 16px; display:grid; gap:8px}
@@ -158,16 +158,11 @@ const arrow = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke
 const siteName = SITE_SHOW.replace("dianalopesart", "<b>dianalopesart</b>");
 
 let n = 0;
-const page = (inner, cls = "", glows = "") => {
+const page = (inner, cls = "") => {
   n++;
-  return `<section class="page ${cls}">${glows}${inner}
+  return `<section class="page ${cls}">${inner}
     <div class="foot"><span class="skd">DL<i>.</i></span><a class="site" href="${url()}"><span>${siteName}</span>${arrow}</a><span class="n">${String(n).padStart(2, "0")}</span></div></section>`;
 };
-const glow = (css) => `<div class="glow" style="${css}"></div>`;
-const G_ORANGE_L = glow("width:520px; height:520px; left:-200px; top:12%; background:radial-gradient(circle,var(--orange),transparent 65%); opacity:.5");
-const G_PINK_R = glow("width:480px; height:480px; right:-190px; top:28%; background:radial-gradient(circle,var(--pink),transparent 65%); opacity:.38");
-const G_MIX_B = glow("width:560px; height:560px; left:22%; bottom:-240px; background:radial-gradient(circle,var(--orange),rgba(255,94,138,.5) 40%,transparent 68%); opacity:.42");
-const G_MIX_R = glow("width:520px; height:520px; right:-170px; bottom:-170px; background:radial-gradient(circle,var(--pink),var(--orange) 35%,transparent 68%); opacity:.42");
 
 const pages = [];
 
@@ -181,7 +176,7 @@ pages.push(page(`
     <a class="btn" href="${url("#projetos")}">${esc(t["hero.cta1"])} ${arrow}</a>
     <a class="btn" href="${url("#contato")}">${esc(t["hero.cta2"])} ${arrow}</a>
   </div>
-  <a class="online" href="${url()}"><div><small>${esc(tp.online)}</small><strong>${siteName}</strong></div><span class="btn main">${esc(tp.open)} ${arrow}</span></a>`, "hero"));
+  <a class="online" href="${url()}"><div><small>${esc(tp.online)}</small><strong>${siteName}</strong></div><span class="btn main">${esc(tp.open)} ${arrow}</span></a>`, "hero bg-topo"));
 
 /* 2. Marcas */
 pages.push(page(`
@@ -189,13 +184,13 @@ pages.push(page(`
   <h2 class="title">${esc(t["brands.t"])}</h2>
   <div class="brands">${BRANDS.map(b => `
     <div class="brand">
-      <div class="cover">${b.cover ? `<img src="${esc(b.cover)}" alt="">` : ""}</div>
+      <div class="cover">${b.cover ? `<img src="img/pdf/marca-${esc(b.cover.split("/").pop().replace(/\.[a-z]+$/, ""))}.jpg" alt="">` : ""}</div>
       <div class="head"><div class="avatar">${b.logo ? `<img src="${esc(b.logo)}" alt="">` : ""}</div><h3>${esc(b.name)}</h3></div>
       <div class="info">${b.clients.length
         ? `<span class="sub">${b.clients.length === 1 ? t.clientOne : t.clientsIn}</span><ul>${b.clients.map(c => `<li><span class="cl">${c.logo ? `<img src="${esc(c.logo)}" alt="">` : esc(initials(c.name))}</span>${esc(c.name)}</li>`).join("")}</ul>`
         : `<p class="sub">${esc(t.direct)}</p>`}</div>
     </div>`).join("")}</div>
-  <div class="center" style="margin-top:40px"><a class="btn" href="${url("#marcas")}">${esc(tp.site)} ${arrow}</a></div>`, "", G_ORANGE_L));
+  <div class="center" style="margin-top:40px"><a class="btn" href="${url("#marcas")}">${esc(tp.site)} ${arrow}</a></div>`, "bg-marcas"));
 
 /* 3. Projetos: todos, na ordem do site, 6 por página */
 const card = p => {
@@ -211,7 +206,7 @@ for (let i = 0; i < PROJECTS.length; i += 6) {
   pages.push(page(`
     ${i === 0 ? `<div class="rule"></div><span class="big-kicker">${esc(t["proj.k"])}</span>` : ""}
     <div class="pgrid">${PROJECTS.slice(i, i + 6).map(card).join("")}</div>
-    ${last ? `<div class="center"><a class="btn" href="${SITE}/galeria.html">${esc(tp.gal)} ${arrow}</a></div>` : ""}`, "", G_PINK_R));
+    ${last ? `<div class="center"><a class="btn" href="${SITE}/galeria.html">${esc(tp.gal)} ${arrow}</a></div>` : ""}`, "bg-projetos"));
 }
 
 /* 4. Expertise */
@@ -221,7 +216,7 @@ pages.push(page(`
   <div class="cols">${EXPERTISE.map(x => `
     <div class="col"><div class="hd"><svg class="ico" viewBox="0 0 34 34" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">${FLAT[x.ico]}</svg><h3>${esc(x[lang][0])}</h3></div>
     <p>${x[lang][1].map(li => `<span>${esc(li)}</span>`).join(" ")}</p></div>`).join("")}</div>
-  <div class="edu"><h3>${esc(t["exp.edu"])}</h3><ul>${EDU.map(e => `<li><b>${esc(e[lang])}</b><span>${esc(e.place)}</span></li>`).join("")}</ul></div>`, "", G_MIX_B));
+  <div class="edu"><h3>${esc(t["exp.edu"])}</h3><ul>${EDU.map(e => `<li><b>${esc(e[lang])}</b><span>${esc(e.place)}</span></li>`).join("")}</ul></div>`, "bg-expertise"));
 
 /* 5. Contato */
 const ICON = k => `<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round">${SOCIAL_ICONS[k]}</svg>`;
@@ -231,7 +226,7 @@ pages.push(page(`
   <h2 class="title">${esc(t["c.t"])}</h2>
   <div class="channels">${CONTACTS.map(c => `<a class="ch" href="${esc(c.url || "mailto:" + c.handle)}">${ICON(c.key)}<b>${esc(c.name)}</b><span>${esc(c.handle)}</span><em>${arrow}</em></a>`).join("")}</div>
   <div class="endcta"><a class="btn main" href="${url()}">${esc(tp.site)} ${arrow}</a></div>
-  <div class="final"><span>© Diana Lopes · ${esc(t.footer)}</span><span class="skd">DL<i>.</i></span></div>`, "", G_MIX_R));
+  <div class="final"><span>© Diana Lopes · ${esc(t.footer)}</span><span class="skd">DL<i>.</i></span></div>`, "bg-contato"));
 
 document.getElementById("doc").innerHTML = pages.join("");
 </script>
